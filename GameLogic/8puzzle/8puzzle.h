@@ -95,7 +95,7 @@ void move_left(int *array) {
 // cmd listner
 void game_loop(int *array) {
     init_array(array);
-    printf("\n\n\'up\'   GO UP\n\'down\'   GO DOWN\n\'right\'   GO RIGHT\n\'left\'   GO LEFT\n");
+    printf("\n\n\'up\'    | \'w\'   GO UP\n\'down\'  | \'s\'   GO DOWN\n\'right\' | \'d\'   GO RIGHT\n\'left\'  | \'a\'   GO LEFT\n");
     char cmd[4];
 
     do {
@@ -104,28 +104,28 @@ void game_loop(int *array) {
         printf("\n~! ");
         scanf("%s", cmd);
 
-        if (!strcmp(cmd, "up")) {
+        if (!strcmp(cmd, "up") || !strcmp(cmd, "w")) {
             move_up(array);
             system("clear");
         }
-        else if (!strcmp(cmd, "down")) {
+        else if (!strcmp(cmd, "down") || !strcmp(cmd, "s")) {
             move_down(array);
             system("clear");
         }
         
-        else if (!strcmp(cmd, "right")) {
+        else if (!strcmp(cmd, "right") || !strcmp(cmd, "d")) {
             move_right(array);
             system("clear");
         }
         
-        else if (!strcmp(cmd, "left")) {
+        else if (!strcmp(cmd, "left") || !strcmp(cmd, "a")) {
             move_left(array);
             system("clear");
         }
 
-        else if (!strcmp(cmd, "exit")) {
+        else if (!strcmp(cmd, "exit") || !strcmp(cmd, "e")) {
             printf("GAME END!\n");
-            exit(0);
+            exit(EXIT_SUCCESS);
         }
 
         else {
