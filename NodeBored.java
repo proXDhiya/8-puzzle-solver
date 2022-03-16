@@ -28,6 +28,7 @@ public class NodeBored {
     // end of game
     static boolean gameEnd(LinkedList<NodeBored> nodeList) {
         if (nodeList.peekLast().bored.isSolved()) {
+            nodeList.peekFirst().printNode();
             nodeList.peekLast().printNode();
             System.out.println("Solved! ^-^\n\n");
             int index = nodeList.peekLast().RacineNodeNum;
@@ -42,7 +43,6 @@ public class NodeBored {
             for (int i = 0; i < actionList.size(); i++) {
                 System.out.print("Action " + (i + 1) + " : " + actionList.get(i) + "\n");
             }
-            System.out.println("\n\n");
 
             return true;
         }

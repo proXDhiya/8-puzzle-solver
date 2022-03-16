@@ -9,15 +9,11 @@ public class game {
 
 
         // add first node to list
-        nodeList.add(new NodeBored(new Bored("125308647"), "init", -1));
+        nodeList.add(new NodeBored(new Bored("102387465"), "init", -1));
 
     
         // index
         int index = 0;
-
-
-        // print init bored
-        nodeList.peekFirst().printNode();
 
 
         do {
@@ -56,15 +52,6 @@ public class game {
             }
             if (NodeBored.gameEnd(nodeList)) break;
 
-
-            /* TEST STATE */
-            if (index % 1000 == 0 && index != 0) {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();  
-                System.out.println("we are in index: " + index);
-                System.out.println("nodeList size: " + nodeList.size() + "\n\n");
-            }
-
             // move to next node
             index++;
 
@@ -73,6 +60,16 @@ public class game {
 
 
     public static void main(String[] args) {
-        gameLoop();
+        // create Thread to calculate time of gameLoop
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+                long startTime = System.currentTimeMillis();
+                gameLoop();
+                long endTime = System.currentTimeMillis();
+                System.out.println("\n\nTime: " + (float)((endTime - startTime)) / 1000 + "s\n");
+            }
+        });
+
+        thread.start();
     }
 }
