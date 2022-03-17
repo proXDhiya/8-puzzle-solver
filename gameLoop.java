@@ -68,6 +68,14 @@ public class gameLoop {
             moveLogic(nodeList, index, "right");
             if (NodeBored.gameEnd(nodeList)) break;
 
+            
+            // print current last node every 1000 index
+            if (index % 1000 == 0 && index != 0) {
+                NodeBored.clearConsole();
+                System.out.println("Current index: " + index);
+                nodeList.peekLast().printNode();
+            }
+
             index++;
         } while(true);
     }
