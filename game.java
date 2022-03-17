@@ -3,13 +3,13 @@ import java.util.LinkedList;
 public class game {
 
     // game loop
-    private static void gameLoop() {
+    private static void gameLoop(String array) {
         // create a list to store all the node
         LinkedList<NodeBored> nodeList = new LinkedList<NodeBored>();
 
 
         // add first node to list
-        nodeList.add(new NodeBored(new Bored("102387465"), "init", -1));
+        nodeList.add(new NodeBored(new Bored(array), "init", -1));
 
     
         // index
@@ -60,11 +60,15 @@ public class game {
 
 
     public static void main(String[] args) {
+        // game table
+        String table = "102387465";
+
+
         // create Thread to calculate time of gameLoop
         Thread thread = new Thread(new Runnable() {
             public void run() {
                 long startTime = System.currentTimeMillis();
-                gameLoop();
+                gameLoop(table);
                 long endTime = System.currentTimeMillis();
                 System.out.println("\n\nTime: " + (float)((endTime - startTime)) / 1000 + "s\n");
             }
