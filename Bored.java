@@ -18,19 +18,6 @@ public class Bored {
     }
 
 
-    public Bored() {
-        this.boredArray[0] = 7;
-        this.boredArray[1] = 2;
-        this.boredArray[2] = 4;
-        this.boredArray[3] = 5;
-        this.boredArray[4] = 0;
-        this.boredArray[5] = 6;
-        this.boredArray[6] = 8;
-        this.boredArray[7] = 3;
-        this.boredArray[8] = 1;
-    }
-
-
     public void printBored() {
         for (int i = 0; i < boredArray.length; i++) {
             if (i % 3 == 0)         System.out.print("\n-------------\n| ");
@@ -41,9 +28,9 @@ public class Bored {
     }
 
 
-    public boolean isSolved() {
+    public boolean isSolved(String end) {
         for (int i = 0; i < 9; i++)
-            if (this.boredArray[i] != i) return false;
+            if (this.boredArray[i] != Character.getNumericValue(end.charAt(i))) return false;
         return true;
     }
 

@@ -35,7 +35,7 @@ public class gameLoop {
 
 
     // game loop
-    public static void Start(String array) {
+    public static void StartDfs(String array, String endArray) {
         // create a list to store all the node
         LinkedList<NodeBored> nodeList = new LinkedList<NodeBored>();
 
@@ -51,22 +51,22 @@ public class gameLoop {
         do {
             // create move up node
             moveLogic(nodeList, index, "up");
-            if (NodeBored.gameEnd(nodeList)) break;
+            if (NodeBored.gameEnd(nodeList, endArray)) break;
 
 
             // create move down node
             moveLogic(nodeList, index, "down");
-            if (NodeBored.gameEnd(nodeList)) break;
+            if (NodeBored.gameEnd(nodeList, endArray)) break;
 
 
             // create move left node
             moveLogic(nodeList, index, "left");
-            if (NodeBored.gameEnd(nodeList)) break;
+            if (NodeBored.gameEnd(nodeList, endArray)) break;
 
 
             // create move right node
             moveLogic(nodeList, index, "right");
-            if (NodeBored.gameEnd(nodeList)) break;
+            if (NodeBored.gameEnd(nodeList, endArray)) break;
 
             
             // print current last node every 1000 index
@@ -79,6 +79,4 @@ public class gameLoop {
             index++;
         } while(true);
     }
-
-
 }

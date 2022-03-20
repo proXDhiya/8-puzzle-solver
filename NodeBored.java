@@ -35,8 +35,8 @@ public class NodeBored {
 
     
     // end of game
-    public static boolean gameEnd(LinkedList<NodeBored> nodeList) {
-        if (nodeList.peekLast().bored.isSolved()) {
+    public static boolean gameEnd(LinkedList<NodeBored> nodeList, String end) {
+        if (nodeList.peekLast().bored.isSolved(end)) {
             clearConsole();
             nodeList.peekFirst().printNode();
             nodeList.peekLast().printNode();
