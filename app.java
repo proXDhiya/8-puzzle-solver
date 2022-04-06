@@ -39,7 +39,7 @@ public class app {
         List<Integer> childs = new ArrayList<Integer>();
 
         // start building the graph
-        while (depth - 1 != initDepth) {
+        while (depth - 1 != initDepth && index != queue.size()) {
             Board upBoard = new Board(queue.get(index).getBoard());
             upBoard.moveUp();
             if (!alreadyExists(upBoard)) {
@@ -92,8 +92,6 @@ public class app {
             Element element = queue.remove();
             if (element.getBoard().isSolved()) {
                 System.out.println("Solved!");
-                System.out.println("Depth: " + element.getDepth());
-                System.out.println("Board: " + element.getBoard().toString());
                 return;
             }
         }
@@ -113,11 +111,13 @@ public class app {
 
             if (element.getBoard().isSolved()) {
                 System.out.println("Solved!");
-                System.out.println("Depth: " + element.getDepth());
-                System.out.println("Board: " + element.getBoard().toString());
                 return;
             } else {
                 index = element.getFromWho();
+                if (index == -1) {
+                    System.out.println("Not solved! at this depth");
+                    return;
+                }
             }
         }
         System.out.println("Not solved! at this depth");
@@ -126,7 +126,10 @@ public class app {
 
     private static void StartBuildingGraph(String str, int initDepth) {
         queue.clear();
+        System.out.print("Start building graph!");
         makeGraph(str, initDepth);
+        System.out.print("\r                      ");
+        System.out.print("\rEnd building graph\n");
     }
 
 
@@ -146,18 +149,33 @@ public class app {
 
 
     public static void main(String[] argc) {
-        String str = "275301468";
+        List<String> boardStr = new ArrayList<String>();
+        boardStr.add("012345678");
+        boardStr.add("142035678");
+        boardStr.add("142358607");
+        boardStr.add("032418657");
+        boardStr.add("371405628");
 
 
-        // BFS
-        StartBuildingGraph(str, 13);
-        // print the graph for test
-        // printGraph();
-        calculateTime("BFS");
+        List<Integer> depthList = new ArrayList<Integer>();
+        depthList.add(2);
+        depthList.add(5);
+        depthList.add(10);
+        depthList.add(15);
+        
 
+        for (String str : boardStr) {
+            System.out.println("------------Board: " + str + "-------------");
+            for (Integer depth : depthList) {
+                // Build and calculate using BFS
+                StartBuildingGraph(str, depth);
+                calculateTime("BFS");
 
-        // IDFS
-        StartBuildingGraph(str, 13);
-        calculateTime("IDFS");
+                // Build and calculate using IDFS
+                StartBuildingGraph(str, depth);
+                calculateTime("IDFS");
+            }
+            System.out.println("---------------------------------------------");
+        }
     }
 }
