@@ -99,7 +99,7 @@ public class app {
     }
 
 
-    private static void IDFS() {
+    private static void IDS() {
         int index = 0;
         while (!queue.isEmpty()) {
             Element element = queue.get(index);
@@ -126,9 +126,9 @@ public class app {
 
     private static void StartBuildingGraph(String str, int initDepth) {
         queue.clear();
-        System.out.print("Start building graph!");
+        System.out.print("Start building graph! with depth: " + initDepth);
         makeGraph(str, initDepth);
-        System.out.print("\r                      ");
+        System.out.print("\r                                              ");
     }
 
 
@@ -136,8 +136,8 @@ public class app {
         long startTime = System.currentTimeMillis();
         if (Algorithm.equals("BFS"))
             BFS();
-        if (Algorithm.equals("IDFS"))
-            IDFS();
+        if (Algorithm.equals("IDS"))
+            IDS();
         long endTime = System.currentTimeMillis();
         System.out.println("Algorithm " + Algorithm + " Time: " + (endTime - startTime) + " ms\n");
     }
@@ -165,13 +165,13 @@ public class app {
             for (Integer depth : depthList) {
                 // Build and calculate using BFS
                 StartBuildingGraph(str, depth);
-                System.out.print("\nDepth: " + depth + " ");
+                System.out.print("\nDepth: " + depth + " \n");
                 calculateTime("BFS");
 
                 // Build and calculate using IDFS
                 StartBuildingGraph(str, depth);
-                System.out.print("\nDepth: " + depth + " ");
-                calculateTime("IDFS");
+                System.out.print("\nDepth: " + depth + " \n");
+                calculateTime("IDS");
             }
             System.out.println("\n-----------------------------------------");
         }
