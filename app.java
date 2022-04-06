@@ -129,22 +129,17 @@ public class app {
         System.out.print("Start building graph!");
         makeGraph(str, initDepth);
         System.out.print("\r                      ");
-        System.out.print("\rEnd building graph\n");
     }
 
 
     private static void calculateTime(String Algorithm) {
         long startTime = System.currentTimeMillis();
-        if (Algorithm.equals("BFS")) {
-            System.out.println("\nStart BFS!");
+        if (Algorithm.equals("BFS"))
             BFS();
-        }
-        else if (Algorithm.equals("IDFS")) {
-            System.out.println("\nStart IDFS!");
+        if (Algorithm.equals("IDFS"))
             IDFS();
-        }
         long endTime = System.currentTimeMillis();
-        System.out.println("Algorithm Time: " + (endTime - startTime) + " ms");
+        System.out.println("Algorithm " + Algorithm + " Time: " + (endTime - startTime) + " ms\n");
     }
 
 
@@ -162,6 +157,7 @@ public class app {
         depthList.add(5);
         depthList.add(10);
         depthList.add(15);
+        depthList.add(17);
         
 
         for (String str : boardStr) {
@@ -169,13 +165,15 @@ public class app {
             for (Integer depth : depthList) {
                 // Build and calculate using BFS
                 StartBuildingGraph(str, depth);
+                System.out.print("\nDepth: " + depth + " ");
                 calculateTime("BFS");
 
                 // Build and calculate using IDFS
                 StartBuildingGraph(str, depth);
+                System.out.print("\nDepth: " + depth + " ");
                 calculateTime("IDFS");
             }
-            System.out.println("---------------------------------------------");
+            System.out.println("\n-----------------------------------------");
         }
     }
 }
