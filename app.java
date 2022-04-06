@@ -1,5 +1,4 @@
 import java.util.List;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -15,8 +14,24 @@ public class app {
     }
 
 
+    private static void printGraph() {
+        System.out.println("start printing graph");
+        int index = 0;
+        for (Element element : queue) {
+            System.out.print("index: " + index++ + " ");
+            System.out.print("\taction: " + element.getAction() + " ");
+            System.out.print("\tdepth: " + element.getDepth() + " ");
+            System.out.print("\tfromWho: " + element.getFromWho() + " ");
+            System.out.print("\tboard: " + element.getBoard().toString() + "\tchilds: ");
+            for (Integer child : element.getChilds())
+                System.out.print(child + " | ");
+            System.out.println();
+        }
+    }
+
+
     private static void makeGraph(String str, int initDepth) {
-        Element root = new Element(str, "init", 0);
+        Element root = new Element(str, "init", 0, -1);
         queue.add(root);
 
         int depth = 0;
@@ -29,7 +44,7 @@ public class app {
             upBoard.moveUp();
             if (!alreadyExists(upBoard)) {
                 depth = queue.get(index).getDepth() + 1;
-                Element up = new Element(upBoard, "up", depth);
+                Element up = new Element(upBoard, "up", depth, index);
                 queue.add(up);
                 childs.add(queue.size() - 1);
             }
@@ -39,7 +54,7 @@ public class app {
             downBoard.moveDown();
             if (!alreadyExists(downBoard)) {
                 depth = queue.get(index).getDepth() + 1;
-                Element down = new Element(downBoard, "down", depth);
+                Element down = new Element(downBoard, "down", depth, index);
                 queue.add(down);
                 childs.add(queue.size() - 1);
             }
@@ -49,7 +64,7 @@ public class app {
             leftBoard.moveLeft();
             if (!alreadyExists(leftBoard)) {
                 depth = queue.get(index).getDepth() + 1;
-                Element left = new Element(leftBoard, "left", depth);
+                Element left = new Element(leftBoard, "left", depth, index);
                 queue.add(left);
                 childs.add(queue.size() - 1);
             }
@@ -59,7 +74,7 @@ public class app {
             rightBoard.moveRight();
             if (!alreadyExists(rightBoard)) {
                 depth = queue.get(index).getDepth() + 1;
-                Element right = new Element(rightBoard, "right", depth);
+                Element right = new Element(rightBoard, "right", depth, index);
                 queue.add(right);
                 childs.add(queue.size() - 1);
             }
@@ -86,21 +101,63 @@ public class app {
     }
 
 
+    private static void IDFS() {
+        int index = 0;
+        while (!queue.isEmpty()) {
+            Element element = queue.get(index);
+            if (element.getChilds().length != 0) {
+                index = element.getChilds()[0];
+                element.removeFirstChild();
+                continue;
+            }
+
+            if (element.getBoard().isSolved()) {
+                System.out.println("Solved!");
+                System.out.println("Depth: " + element.getDepth());
+                System.out.println("Board: " + element.getBoard().toString());
+                return;
+            } else {
+                index = element.getFromWho();
+            }
+        }
+        System.out.println("Not solved! at this depth");
+    }
+
+
+    private static void StartBuildingGraph(String str, int initDepth) {
+        queue.clear();
+        makeGraph(str, initDepth);
+    }
+
+
+    private static void calculateTime(String Algorithm) {
+        long startTime = System.currentTimeMillis();
+        if (Algorithm.equals("BFS")) {
+            System.out.println("\nStart BFS!");
+            BFS();
+        }
+        else if (Algorithm.equals("IDFS")) {
+            System.out.println("\nStart IDFS!");
+            IDFS();
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println("Algorithm Time: " + (endTime - startTime) + " ms");
+    }
+
+
     public static void main(String[] argc) {
         String str = "275301468";
 
 
-        // build the graph
-        System.out.println("start building graph");
-        makeGraph(str, 15);
-        System.out.println("end building graph with " + queue.size() + " nodes");
+        // BFS
+        StartBuildingGraph(str, 13);
+        // print the graph for test
+        // printGraph();
+        calculateTime("BFS");
 
 
-        // calculate the time it takes to solve the puzzle using BFS
-        System.out.println("start BFS");
-        Time startTime = new Time(System.currentTimeMillis());
-        BFS();
-        Time endTime = new Time(System.currentTimeMillis());
-        System.out.println("BFS time: " + ((double)(endTime.getTime() - startTime.getTime()) / 1000) + "s");
+        // IDFS
+        StartBuildingGraph(str, 13);
+        calculateTime("IDFS");
     }
 }

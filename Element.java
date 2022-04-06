@@ -6,19 +6,22 @@ public class Element {
     private String action;
     private List<Integer> childs = new ArrayList<Integer>();
     private int depth;
+    private int fromWho;
 
 
-    public Element(String str, String action, int depth) {
+    public Element(String str, String action, int depth, int fromWho) {
         this.board = new Board(str);
         this.action = action;
         this.depth = depth;
+        this.fromWho = fromWho;
     }
 
 
-    public Element(Board board, String action, int depth) {
+    public Element(Board board, String action, int depth, int fromWho) {
         this.board = new Board(board);
         this.action = action;
         this.depth = depth;
+        this.fromWho = fromWho;
     }
 
 
@@ -47,7 +50,17 @@ public class Element {
     }
 
 
+    public void removeFirstChild() {
+        this.childs.remove(0);
+    }
+
+
     public int getDepth() {
         return this.depth;
+    }
+
+
+    public int getFromWho() {
+        return this.fromWho;
     }
 }
