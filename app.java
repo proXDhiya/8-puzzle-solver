@@ -88,8 +88,9 @@ public class app {
 
 
     private static void BFS() {
-        while (!queue.isEmpty()) {
-            Element element = queue.remove();
+        int index = 0;
+        while (index < queue.size()) {
+            Element element = queue.get(index++);
             if (element.getBoard().isSolved()) {
                 System.out.println("Solved!");
                 return;
@@ -169,7 +170,6 @@ public class app {
                 calculateTime("BFS");
 
                 // Build and calculate using IDFS
-                StartBuildingGraph(str, depth);
                 System.out.print("\nDepth: " + depth + " \n");
                 calculateTime("IDS");
             }
